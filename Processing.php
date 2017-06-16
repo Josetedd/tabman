@@ -59,7 +59,7 @@ while ($row = mysqli_fetch_array($result)) {
         }
 ?>
             </table>
-    <a class="btn btn-success" href="index.php?page=addcat" ><span class="fa fa-pencil">Add Category</span></a>
+    <a class="btn btn-success" href="index.php?page=addcat" ><span class="fa fa-plus">Add Category</span></a>
     </div>
     </div>
 <?php

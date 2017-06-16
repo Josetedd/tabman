@@ -25,6 +25,7 @@ class Pages extends dbconn{
         <!-- font awesome -->
         <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
         <script src="jquery-3.2.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js">
         <script src= "jquery-ui/jquery-ui.js"></script>
         <script src="jquery-ui/jquery-ui.min.js"></script>
         <script src="jquery-ui/jquery.ui.autocomplete.html.js"></script>
@@ -47,7 +48,20 @@ class Pages extends dbconn{
             <a class="navbar-brand" href="#"> iMlango Tablet Maintenance system</a>
             </div>
 <!-----------------------menu--------------------------------------------------->
-              
+             <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Tablets
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="index.php?page=returned">Add Faulty Tablet</a></li>
+          <li><a href="#">Faulty Tablets</a></li>
+          <li><a href="#">Tablet Reports</a></li>
+        </ul>
+      </li>
+      <li><a href="index.php?page=categories">Categories</a></li>
+      <li><a href="#">Reports</a></li>
+    </ul> 
           </div>
         </nav>
         <div class="container" style=" height: 80%">

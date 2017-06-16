@@ -1,51 +1,38 @@
-<?php
-include 'collection.php';
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-$pages = new Pages();
-
-//$pages->pageheader("test");
-?>
-<html>
-    <head>
-        <title>TabMan | test</title>
-        <!--//-------------------bootstrap insertion----------------------------------->
-        <!-- Bootstrap -->
-         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- font awesome -->
-        <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
-        <script src="jquery-3.2.1.min.js"></script>
-        <script src= "jquery-ui/jquery-ui.js"></script>
-        <script src="jquery-ui/jquery-ui.min.js"></script>
-        <script src="jquery-ui/jquery.ui.autocomplete.html.js"></script>
-       
-        
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesnt work if you view the page
-        via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-<!--//------------------------------------------------------------------------->
-
-    </head>
-    <body>
-<script>
-$(document).ready(function($){
-    $('#merch').autocomplete({
-	source:'schSearch.php', 
-	minLength:5
-    });
-});
-</script>
-<div>
-<form>
-    <input type="text" placeholder="Name" id="merch" name="term" autocomplete="off" style="list-style: none" />
-     <button type="submit">post</button>
-</form>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Page 1-1</a></li>
+          <li><a href="#">Page 1-2</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+  <h3>Navbar With Dropdown</h3>
+  <p>This example adds a dropdown menu for the "Page 1" button in the navigation bar.</p>
 </div>
-    </body>
+
+</body>
 </html>
-<?php
-//$pages->pagefooter();
