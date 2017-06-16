@@ -29,10 +29,50 @@
   </div>
 </nav>
   
-<div class="container">
-  <h3>Navbar With Dropdown</h3>
-  <p>This example adds a dropdown menu for the "Page 1" button in the navigation bar.</p>
-</div>
+<div class="col-xs-2">
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <a href="#">Dashboard</a>
+        </div>
+
+        <div class="panel-body">
+          <a href="#">Messages</a>
+        </div>
+
+        <div class="panel-body">
+          <a href="#">Widgets</a>
+        </div>
+
+        <div class="panel-body">
+          <a href="#">Analytics</a>
+        </div>
+
+        <div class="panel-body">
+          <a href="#">Forms</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-xs-6">
+
+      <div id='myChart'></div>
+
+    </div>
+
+    <div class="col-xs-4">
+
+      <div id='myChart1'></div>
+
+    </div>
+
+  </div>
+
+</div>  
+
 
 </body>
 </html>
