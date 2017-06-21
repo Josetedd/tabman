@@ -49,9 +49,9 @@ class Pages extends dbconn{
             </div>
 <!-----------------------menu--------------------------------------------------->
              <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+                 <li><a href="index.php"><span class="fa fa-lg fa-home">Home</span></a></li>
       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown">Tablets
+          <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-lg fa-mobile">Tablets</span>
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="index.php?page=returned">Add Faulty Tablet</a></li>
@@ -59,8 +59,8 @@ class Pages extends dbconn{
           <li><a href="#">Tablet Reports</a></li>
         </ul>
       </li>
-      <li><a href="index.php?page=categories">Categories</a></li>
-      <li><a href="#">Reports</a></li>
+      <li><a href="index.php?page=categories"><span class="fa fa-lg fa-book">Categories</span></a></li>
+      <li><a href="#"><span class="fa fa-lg fa-pie-chart">Reports</span></a></li>
     </ul> 
           </div>
         </nav>
