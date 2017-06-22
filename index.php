@@ -4,6 +4,7 @@
 include 'collection.php';
 $pages = new Pages();
     $processing = new Processing();
+    $category = new Category();
 //==============check if page name is set============================================
 if(!isset($_GET['page'])){// if not set show home page
     $title="home";
@@ -75,7 +76,7 @@ elseif ($name=="savecat") {
     $pages->pageheader($title);
     if(isset($_POST["sbt"])){
         $catName=$_POST['CatName'];
-        $processing->savecat($catName);
+        $category->savecat($catName);
     }
     elseif (isset ($_POST["updt"])) {
         if(!isset($_POST['CatName'])){
@@ -85,7 +86,7 @@ elseif ($name=="savecat") {
      $catName=$_POST['CatName'];
      $catID=$_POST['catid'];
      //echo $catId;
-     $processing->catupdt($catName, $catID);
+     $category->catupdt($catName, $catID);
         }
 }
     $pages->pagefooter();
@@ -97,7 +98,7 @@ elseif ($name=="savecat") {
         $pages->pageheader($title);
         //$pages->bodyright();
         
-        $processing->catget();
+        $category->catget();
         //$pages->bodyleft();
         $pages->pagefooter();
     }
@@ -106,7 +107,7 @@ elseif ($name=="savecat") {
     $pages->pageheader($title);
     if(isset($_GET['id'])&& is_numeric($_GET['id'])){
         $id= $_GET['id'];
-     $processing->editcat($id);
+     $category->editcat($id);
       
     }
  else {
