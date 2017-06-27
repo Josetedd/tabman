@@ -14,10 +14,11 @@
     $result = $db->query($sql);
     $array = array();
     while ($row = mysqli_fetch_array($result)) {
-        $array["id"]=$row['school'];
-        //$array["label"]=$row['school'];
-        //$array["value"]=$row['school'];
-        array_push($array, $row);
+        $array[]=array(
+                'label'=>$row['school'],
+                'value'=>$row['school']);
+        
+        
         
     }
        /* $array[] = array (

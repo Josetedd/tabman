@@ -1,78 +1,28 @@
+<!doctype html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Demo</title>
+  <link rel="stylesheet" href="jquery-ui/test.css" type="text/css" /> 
 </head>
-<body>
+<body> 
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
-    </ul>
-  </div>
-</nav>
-  
-<div class="col-xs-2">
+    <form action='' method='post'>
+        <p><label>Country:</label><input type='text' name='school' value='' class='auto'></p>
+    </form>
 
-      <div class="panel panel-default">
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>    
+<script type="text/javascript">
+$(function() {
+    
+    //autocomplete
+    $(".auto").autocomplete({
+        source: "schSearch.php",
+        minLength: 1
+    });                
 
-        <div class="panel-heading">
-          <a href="#">Dashboard</a>
-        </div>
-
-        <div class="panel-body">
-          <a href="#">Messages</a>
-        </div>
-
-        <div class="panel-body">
-          <a href="#">Widgets</a>
-        </div>
-
-        <div class="panel-body">
-          <a href="#">Analytics</a>
-        </div>
-
-        <div class="panel-body">
-          <a href="#">Forms</a>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="col-xs-6">
-
-      <div id='myChart'></div>
-
-    </div>
-
-    <div class="col-xs-4">
-
-      <div id='myChart1'></div>
-
-    </div>
-
-  </div>
-
-</div>  
-
-
+});
+</script>
 </body>
 </html>

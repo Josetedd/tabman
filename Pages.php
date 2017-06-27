@@ -1,13 +1,9 @@
 <?php
 include 'collection.php';
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
- * Description of Pages
+ * html pages
  *
  * @author Joseph Mwangi
  */
@@ -24,6 +20,7 @@ class Pages extends dbconn{
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- font awesome -->
         <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="jquery-ui/test.css">
         <script src="jquery-3.2.1.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js">
         <script src= "jquery-ui/jquery-ui.js"></script>
@@ -54,6 +51,7 @@ class Pages extends dbconn{
           <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-lg fa-mobile">Tablets</span>
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
+            <li><a href="index.php?page=ftabs">View Faulty Tablets</a></li>
           <li><a href="index.php?page=returned">Add Faulty Tablet</a></li>
           <li><a href="#">Faulty Tablets</a></li>
           <li><a href="#">Tablet Reports</a></li>

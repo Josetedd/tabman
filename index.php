@@ -5,6 +5,7 @@ include 'collection.php';
 $pages = new Pages();
     $processing = new Processing();
     $category = new Category();
+    $tablets =new Tablets();
 //==============check if page name is set============================================
 if(!isset($_GET['page'])){// if not set show home page
     $title="home";
@@ -21,6 +22,7 @@ if(!isset($_GET['page'])){// if not set show home page
     $pages->pageheader($title);
     $pages->pagefooter();   
      }
+//>>>>>>>>>>>>>>>>>>>>>>>>Tablets Page<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //==================returned tablet page===========================================
      elseif ($name=="returned") {
      $title="returned";
@@ -61,6 +63,18 @@ if(!isset($_GET['page'])){// if not set show home page
          header('Location: index.php?page=add');
       }   
 }
+//=====================view returned tablets page=================================
+        elseif ($name=="ftabs") {
+            $title="Faulty Tablets";
+            $pages->pageheader($title);
+            $pages->bodyleft();
+            $tablets->Ftabview();
+            $pages->bodyright();
+            $processing->ntcbrd();
+            $pages->pagefooter2();
+            
+        
+    }
 //>>>>>>>>>>>>>>>>>>>>>>Category Pages<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //===================add category page===================================================
 elseif ($name=="addcat") {
