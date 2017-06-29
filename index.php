@@ -60,7 +60,7 @@ if(!isset($_GET['page'])){// if not set show home page
         $sql= "INSERT INTO returned (merchant,squidcode,county,rdate,tcond,tissue,sam)
                 VALUES ('$merchant', '$sqcode', '$county', '$retdate', '$cond','$issue','$sam')";
          $processing->dbinsert($sql);
-         header('Location: index.php?page=add');
+         $tablets->Ftabview();
       }   
 }
 //=====================view returned tablets page=================================

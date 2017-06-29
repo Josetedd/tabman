@@ -15,7 +15,6 @@
     $array = array();
     while ($row = mysqli_fetch_array($result)) {
         $array[]=array(
-                'label'=>$row['school'],
                 'value'=>$row['school']);
         
         

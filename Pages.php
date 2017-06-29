@@ -22,9 +22,9 @@ class Pages extends dbconn{
         <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="jquery-ui/test.css">
         <script src="jquery-3.2.1.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js">
         <script src= "jquery-ui/jquery-ui.js"></script>
         <script src="jquery-ui/jquery-ui.min.js"></script>
+         <script src="bootstrap/js/bootstrap.min.js">
         <script src="jquery-ui/jquery.ui.autocomplete.html.js"></script>
         <script src="jquery-ui/jquery-ui.min"></script>
         
@@ -125,7 +125,7 @@ class Pages extends dbconn{
         <div class="col-md-8" style="background:grey; border-radius:25px">
     <h3 style="text-decoration: underline">RETURNED TABLET</h3>
     <form action="index.php?page=add" method="post">
-    <div class="form-group">
+        <div class="form-group"><div>
     <label for="merchant">School:</label>
     
     <!----------search for school in db-------------------------------------------->
@@ -138,6 +138,7 @@ $(document).ready(function($){
 });
 </script>
 </script>
+            </div>
 <input  id="merch" class="form-control" type="text" name="merchant" placeholder="School Name" required />
     </div>
  <!---------------end--------------------------------------------------------------->
@@ -146,6 +147,7 @@ $(document).ready(function($){
     </div>
     <div class="form-group">
     <label for="county">County</label>
+<!--------------------------get county name------------------------------------------>
     <select class="form-control" name="county" required placeholder="select county">
         <optgroup>
             <option value="" disabled selected>Select County</option>
