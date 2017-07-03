@@ -1,17 +1,90 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This class contains all methods for adding, viewing, updating tablet records
  */
 
 /**
- * Description of tablets
+ * @author Joseph Mwangi
  *
- * @author dell
  */
 class Tablets extends dbconn{
+    //=============================new returned tablet==============================
+    public function frmfield(){
+        $dbconn=new dbconn();
+        ?>
+
+    <div class="row">
+        <div class="col-md-8" style="background:grey; border-radius:25px">
+    <h3 style="text-decoration: underline">RETURNED TABLET</h3>
+    <form action="index.php?page=add" method="post">
+        <div class="form-group"><div>
+    <label for="merchant">School:</label>
+    
+    <!----------search for school in db-------------------------------------------->
+    <script>
+$(document).ready(function($){
+    $('#merch').autocomplete({
+	source:'schSearch.php', 
+	minLength:2
+    });
+});
+</script>
+</script>
+            </div>
+<input  id="merch" class="form-control" type="text" name="merchant" placeholder="School Name" required />
+    </div>
+ <!---------------end--------------------------------------------------------------->
+    <div class="form-group">
+    <label for="sqcode">Squid Code:</label><input  class="form-control" type="text" name="sqcode" placeholder="Squid Code" required />
+    </div>
+    <div class="form-group">
+    <label for="county">County</label>
+<!--------------------------get county name------------------------------------------>
+    <select class="form-control" name="county" required placeholder="select county">
+        <optgroup>
+            <option value="" disabled selected>Select County</option>
+            <option>Kilifi</option>
+            <option>Makueni</option>
+            <option>Kajiado</option>
+            <option>Uasin Gishu</option>
+        </optgroup>
+    </select>
+    </div>
+    <div class="form-group">
+        <label for="retdate">Return Date:</label><input class="form-control" type="date" name="retdate" placeholder="Date" required/>
+    </div>
+    <div class="form-group">
+        <label for="issue">Category</label>
+         <select class="form-control" name="issue" required>
+            <optgroup>
+                <option value="" disabled selected>Select issue</option>
+<?php
+//connect to db
+$connect=  $this->dbselect();
+$query="select * from categories";
+$result= $connect->query($query);
+while ($row=  mysqli_fetch_array($result)){
+    echo '<option value="'.$row['category'].'">'.$row['category'].'</option> ';  
+}
+?>
+            </optgroup>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="sam">SAM?:</label><input type="checkbox" name="sam" value="yes">    
+    </div>
+    <div class="form-group">
+        <button class="btn btn-sm btn-success"type="submit" name="sbt">Save</button>
+        <button class="btn btn-sm btn-success" type="reset" name="rst">Clear</button>
+            
+    </div>
+</form>
+</div>
+</div>
+
+<?php
+    }
     //======================**view all tablets**================================
     function Ftabview(){
         $connection= $this->dbselect();

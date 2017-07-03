@@ -1,15 +1,12 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This class contains all methods for adding, viewing, updating tablet records
  */
 
 /**
- * Description of category
  *
- * @author dell
+ * @author Joseph Mwangi
  */
 class Category extends dbconn {
     //=================== get categories============================================
@@ -37,6 +34,29 @@ while ($row = mysqli_fetch_array($result)) {
     </div>
 <?php
 mysqli_close($connect);
+    }
+    //======================Add new Category========================================    
+    public function Addcat() {
+?>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h3 style="text-align: center"><small>New Category</small></h3>
+    <form action="index.php?page=savecat" method="post">
+       
+        <div class="form-group">
+            <label for="CatName">Category Name</label>
+            <input class="form-control" type="text" name="CatName"/>
+        </div>
+         <div class="form-group">
+             <button type="submit" name="sbt" class="btn-sm btn-success">Save</button>
+             <button type="clear"  class="btn-sm btn-success">Clear</button>
+        </div>
+        
+    </form>
+    </div>
+</div>
+
+<?php        
     }
 //===================================Edit Category=================================
     public function editcat($id) {

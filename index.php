@@ -28,7 +28,7 @@ if(!isset($_GET['page'])){// if not set show home page
      $title="returned";
      $pages->pageheader($title);
      $pages->bodyleft();
-     $pages->frmfield();
+     $tablets->frmfield();
      $pages->bodyright();
      $processing->ntcbrd();
      $pages->pagefooter2();
@@ -86,7 +86,7 @@ if(!isset($_GET['page'])){// if not set show home page
 elseif ($name=="addcat") {
     $title="New Category";
     $pages->pageheader($title);
-    $pages->Addcat();
+    $category->Addcat();
     $pages->pagefooter();
 
 }
