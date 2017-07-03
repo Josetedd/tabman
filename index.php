@@ -34,10 +34,16 @@ if(!isset($_GET['page'])){// if not set show home page
      $pages->pagefooter2();
        }
 //======================Dispatch tablet page======================================
-       elseif ($name=="Disp") {
-       $title="Dispached";
+       elseif ($name=="disp") {
+       $title="Dispach";
      $pages->pageheader($title);
-     $pages->dispform();
+     if(isset($_GET['id'])){
+         $tabid=$_GET['id'];
+     $tablets->tabrep($tabid);
+     }
+     else{
+         echo 'No Faulty Tablet Selected';
+     }
      $pages->pagefooter();
    }
 //==================add returned tablet page=============================================

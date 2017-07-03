@@ -192,6 +192,10 @@ while ($row=  mysqli_fetch_array($result)){
 
 <?php
     }
+//===========================Replace tablet=====================================
+    public function repform(){
+        
+    }
 //======================Add new Category========================================    
     public function Addcat() {
 ?>
