@@ -1,0 +1,6 @@
+/*
+*this will only be displayed during printing only
+*/
+.notprint{
+    display: none;
+}

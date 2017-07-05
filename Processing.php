@@ -13,9 +13,7 @@
  */
 class Processing extends dbconn {
 
-    public function Retview(){
-        
-    }
+    
 //==============default notice board information================================
     public function ntcbrd(){
         $connection=$this->dbselect();

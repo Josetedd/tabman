@@ -85,15 +85,15 @@ while ($row=  mysqli_fetch_array($result)){
 
 <?php
     }
-    //======================**view all tablets**================================
+    //======================**view Faulty tablets**================================
     function Ftabview(){
         $connection= $this->dbselect();
-        $query = "select * from returned";
+        $query = "select * from returned ORDER BY replaced ASC, rdate DESC";
         $result= $connection->query($query);
         ?>
 <div>
     <h1 style="text-align: center">Faulty Tablets</h1>
-    <a class="btn btn-danger" href="index.php?page=returned"><span class="fa fa-plus">Add Faulty Tablet</span></a>
+    <a class="btn btn-danger" href="index.php?page=faulty"><span class="fa fa-plus">Add Faulty Tablet</span></a>
     <a class="btn btn-info" href="#"><span class="fa fa-plus-square">Add extra tablet</span></a>
     <br/>
     <table class="table table-striped">
@@ -108,7 +108,10 @@ while ($row=  mysqli_fetch_array($result)){
         <td>";
 //show replace button if not replaced and replace if replaced
             if($row['replaced']==0){
-                echo '<a class="btn btn-success" href="index.php?page=disp&id='.$id.'"><span class="fa fa-refresh">replace<span></a>';
+                echo '<a class="btn btn-success btn-sm" href="index.php?page=disp&id='.$id.'"><span class="fa fa-refresh">replace<span></a>';
+            }
+            else{
+                echo '<span class="btn btn-danger btn-sm disabled">Replaced</span>';
             }
             
         echo"</td></tr>";
@@ -121,6 +124,7 @@ while ($row=  mysqli_fetch_array($result)){
 </div>
 <?php
     }
+    //=====================**replace tablet**======================================
     function tabrep($tabid){
         $connection= $this->dbselect();
         $query="select * from `returned` where `tabId`=$tabid";
@@ -131,7 +135,7 @@ while ($row=  mysqli_fetch_array($result)){
   //==================================replacement form================================================
  ?>
   <div class="row">
-         <form class="form-horizontal" action="">
+      <form class="form-horizontal" action="index.php?page=repadd" method="post">
              <div class="col-md-10 col-md-offset-1" style="background-color: #4cb14d; ">
               <h2>Tablet Replacement</h2>
               <div class="col-md-6 " style="border-right: 1px solid #f4eded">
@@ -144,6 +148,11 @@ while ($row=  mysqli_fetch_array($result)){
       <label class="control-label col-md-3" for="fsch">From:</label>
       <div class="col-md-9">        
           <input type="text" class="form-control" id="fsch" value="<?php echo $row['merchant'] ?>" disabled>
+<!--------------------------hidden inputs-------------------------------------------------------->         
+          <input type="hidden" class="form-control" name="fschl" value="<?php echo $row['merchant'] ?>" >
+           <input type="hidden" class="form-control" name="tabid" value="<?php echo $tabid ?>" >
+          
+<!----------------------------------------------------------------------------------------------->     
       </div>
     </div>
     <div class="form-group">
@@ -158,18 +167,24 @@ while ($row=  mysqli_fetch_array($result)){
              <div class="form-group"> 
       <label class="control-label col-md-3" for="rcode">Squid Code:</label>
       <div class="col-md-9">          
-          <input type="text" class="form-control" name="rcode">
+          <input type="text" class="form-control" name="rcode" required>
       </div>
          </div>
              <div class="form-group"> 
       <label class="control-label col-md-3" for="rime">IMEI1:</label>
       <div class="col-md-9">          
-          <input type="text" class="form-control" name="rime">
+          <input type="text" class="form-control" name="rime" required>
+      </div>
+         </div>
+             <div class="form-group"> 
+      <label class="control-label col-md-3" for="rsam">SAM:</label>
+      <div class="col-md-9">          
+          <input type="checkbox" name="rsam"value="yes">
       </div>
          </div>
         <div class="form-group">
             <div class="col-md-offset-4">
-      <button type="submit" class="btn btn-default">Save & generate Delivery</button>
+                <button type="submit" class="btn btn-default" name="sbt">Save & generate Delivery</button>
             </div>
             </div>
          
@@ -187,5 +202,59 @@ while ($row=  mysqli_fetch_array($result)){
              
          }
         
+    }
+    //=============================view Replaced tablets============================
+    function tabview(){
+        $connection= $this->dbselect();
+        $query = "select * from replaced";
+        $result= $connection->query($query);
+        ?>
+<div>
+    <h1 style="text-align: center">Replaced Tablets</h1>
+    <a class="btn btn-primary" href="index.php?page=ftabs"><span class="fa fa-eye">View Faulty Tablets</span></a>
+    <a class="btn btn-info" href="#"><span class="fa fa-plus-square">Add extra tablet</span></a>
+     <a class="btn btn-danger" href="index.php?page=faulty"><span class="fa fa-eye">Add Faulty Tablets</span></a>
+    <br/>
+    <table class="table table-striped">
+        <tr>
+            <td>School</td><td>Imei</td><td>Squid Code</td><td>Sam</td><td>replaced on</td>
+        </tr>
+<?php
+        while ($row = mysqli_fetch_array($result)) {
+            
+            $id=$row['repId'];
+            if($row['sam']==1){
+                $sam="Yes";
+            }
+            else {
+                $sam="No";
+            }
+            echo "<tr>
+            <td>".$row['school']."</td><td>".$row['imei1']."</td><td>".$row['sqcode']."</td><td>".$sam."</td><td>".$row['rdate']."</td>
+        <td>";
+//show View Delivery Note
+             echo '<a class="btn btn-success" href="index.php?page=disp&id='.$id.'"><span class="fa fa-file-pdf-o">Delivery Note<span></a>';
+        echo"</td></tr>";
+         
+         
+            
+        }
+?>
+    </table>
+</div>
+<?php
+    }
+    //================================insert replace tablet data====================================
+    public function Repadd($sql1,$sql2){
+        $connection= $this->dbselect();
+        if(mysqli_query($connection, $sql1)){
+            if(mysqli_query($connection, $sql2)){
+                echo 'Data successfully Saved';
+            }
+        }
+        else {
+                echo 'Data not saved contact Admin';
+              
+        }
     }
 }

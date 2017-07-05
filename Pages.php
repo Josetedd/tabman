@@ -15,9 +15,11 @@ class Pages extends dbconn{
     <head>
         <title>TabMan | <?php echo $title;  ?></title>
         <!--//-------------------bootstrap insertion----------------------------------->
-        <!-- Bootstrap -->
+        <!-- Bootstrap and css -->
          <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="mycss/style.css" rel="stylesheet">
+        <link href="mycss/styleprint.css" rel="stylesheet" media="print">
         <!-- font awesome -->
         <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="jquery-ui/test.css">
@@ -27,14 +29,10 @@ class Pages extends dbconn{
          <script src="bootstrap/js/bootstrap.min.js">
         <script src="jquery-ui/jquery.ui.autocomplete.html.js"></script>
         <script src="jquery-ui/jquery-ui.min"></script>
+        <script src="fusioncharts/fusioncharts.js"></script>
+        <script src="fusioncharts/fusioncharts.charts.js"></script>
+        <script src="fusioncharts/themes/fusioncharts.theme.fint.js"></script>
         
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesnt work if you view the page
-        via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
 <!--//------------------------------------------------------------------------->
 
     </head>
@@ -52,8 +50,7 @@ class Pages extends dbconn{
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="index.php?page=ftabs">View Faulty Tablets</a></li>
-          <li><a href="index.php?page=returned">Add Faulty Tablet</a></li>
-          <li><a href="#">Faulty Tablets</a></li>
+          <li><a href="index.php?page=replaced">View Replaced Tablets</a></li>
           <li><a href="#">Tablet Reports</a></li>
         </ul>
       </li>
@@ -110,8 +107,16 @@ class Pages extends dbconn{
 //========================Main Page Dashboard===================================
     public function mainDash(){
 ?>
-<div class="well" >
-    
+<div class="jumbotron" style="text-align: center">
+    <a href="index.php?page=ftabs" class="btn  btn-danger"><span class="fa fa-wrench fa-2x">Faulty Tablets</span></a>
+    <a href="index.php?page=replaced" class="btn btn-success"><span class="fa fa-recycle fa-2x">Replaced Tablets</span></a>
+    <a href="index.php?page=categories" class="btn btn-warning"><span class="fa fa-cog fa-2x">issues Categories</span></a>
+    <a href="index.php?page=ftabs" class="btn btn-info"><span class="fa fa-pie-chart fa-2x">Reports</span></a>
+</div>
+<div class="row">
+    <div class="col-md-">
+        
+    </div>
 </div>
 <?php
     }

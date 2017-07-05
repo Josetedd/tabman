@@ -10,6 +10,7 @@ $pages = new Pages();
 if(!isset($_GET['page'])){// if not set show home page
     $title="home";
     $pages->pageheader($title);
+    $pages->mainDash();
     $pages->pagefooter();
     
 }
@@ -23,9 +24,41 @@ if(!isset($_GET['page'])){// if not set show home page
     $pages->pagefooter();   
      }
 //>>>>>>>>>>>>>>>>>>>>>>>>Tablets Page<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-//==================returned tablet page===========================================
-     elseif ($name=="returned") {
-     $title="returned";
+        elseif ($name=="repadd") {
+        $title="tablet replaced";
+        $pages->pageheader($title);
+        if(isset($_POST['sbt'])){
+            $school=$_POST['fschl'];
+            $imei=$_POST['rime'];
+            $rcode=$_POST['rcode'];
+            if(!isset($_POST['rsam'])){
+                $rsam="0";
+            }
+            else{
+            $rsam="1";
+            }
+            
+            $tabid=$_POST['tabid'];
+            $sql2="UPDATE returned SET replaced=1 WHERE tabId=$tabid";
+            $sql1="INSERT INTO replaced (school,imei1,sqcode,sam,rdate)
+                VALUES ('$school', '$imei', '$rcode', '$rsam', now()) ";
+            $tablets->Repadd($sql1, $sql2);
+            
+        }
+    }
+//====================View dispached/replaced tablets===========================
+        elseif ($name=="replaced") {
+        $title ="Replaced tablets";
+        $pages->pageheader($title);
+            $pages->bodyleft();
+            $tablets->tabview();
+            $pages->bodyright();
+            $processing->ntcbrd();
+            $pages->pagefooter2();
+    }
+//==================Faulty tablet page===========================================
+     elseif ($name=="faulty") {
+     $title="Add Faulty";
      $pages->pageheader($title);
      $pages->bodyleft();
      $tablets->frmfield();
@@ -46,7 +79,7 @@ if(!isset($_GET['page'])){// if not set show home page
      }
      $pages->pagefooter();
    }
-//==================add returned tablet page=============================================
+//==================add Faulty tablet page=============================================
    elseif ($name=="add") {
         $title = "Success";
       $pages->pageheader($title);
@@ -69,7 +102,7 @@ if(!isset($_GET['page'])){// if not set show home page
          $tablets->Ftabview();
       }   
 }
-//=====================view returned tablets page=================================
+//=====================view Faulty tablets page=================================
         elseif ($name=="ftabs") {
             $title="Faulty Tablets";
             $pages->pageheader($title);
