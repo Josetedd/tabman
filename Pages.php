@@ -7,7 +7,8 @@ include 'collection.php';
  *
  * @author Joseph Mwangi
  */
-class Pages extends dbconn{
+class Pages extends report{
+    
 //======================header part=============================================
     public function pageheader($title){
        ?>
@@ -114,10 +115,34 @@ class Pages extends dbconn{
     <a href="index.php?page=ftabs" class="btn btn-info"><span class="fa fa-pie-chart fa-2x">Reports</span></a>
 </div>
 <div class="row">
-    <div class="col-md-">
-        
+    
+    <div class="col-md-3">
+        <h4>Faulty tablets</h4>
+        <a href="#">
+<!------------------------faulty tablets chart------------------------------------------------>
+           <?php $this->fCounty("100%","40%");    ?> 
+        </a>   
     </div>
-</div>
+<!------------------------Replaced tablets chart------------------------------------------------>
+    <div class="col-md-3">
+        <h4>Replaced tablets</h4>
+            <?php $this->RCounty("100%","40%");    ?>
+            
+    </div>
+<!------------------------Categories chart------------------------------------------------>
+    <div class="col-md-3 well">
+        <span>Issues</span><hr />
+        <div>
+            small pie chart here
+        </div>       
+    </div>
+    <div class="col-md-3 well">
+        <span>Other reports</span><hr />
+        <div>
+            small pie chart here
+        </div> 
+    </div>
+    </div>
 <?php
     }
 
