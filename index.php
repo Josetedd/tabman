@@ -114,6 +114,24 @@ if(!isset($_GET['page'])){// if not set show home page
             
         
     }
+//========================Generate Delivery=====================================
+        elseif ($name=="dnote") {
+            $title="Delivery Note";
+            $pages->pageheader($title);
+            if(!isset($_GET['id'])){
+                echo 'no Tablet selected, select from this list';
+                $tablets->tabview();
+                $pages->bodyright();
+                $processing->ntcbrd();
+                $pages->pagefooter2();
+            }
+            else {
+                $tabid=$_GET['id'];
+                $tablets->dNote($tabid);
+                $pages->pagefooter();
+            }
+        
+    }
 //>>>>>>>>>>>>>>>>>>>>>>Category Pages<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //===================add category page===================================================
 elseif ($name=="addcat") {

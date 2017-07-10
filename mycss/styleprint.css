@@ -4,3 +4,6 @@
 .notprint{
     display: none;
 }
+.meza td{
+    height: 500px;
+}

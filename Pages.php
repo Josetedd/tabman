@@ -116,7 +116,7 @@ class Pages extends report{
 </div>
 <div class="row">
     
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h4>Faulty tablets</h4>
         <a href="#">
 <!------------------------faulty tablets chart------------------------------------------------>
@@ -124,24 +124,17 @@ class Pages extends report{
         </a>   
     </div>
 <!------------------------Replaced tablets chart------------------------------------------------>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h4>Replaced tablets</h4>
             <?php $this->RCounty("100%","40%");    ?>
             
     </div>
 <!------------------------Categories chart------------------------------------------------>
-    <div class="col-md-3 well">
-        <span>Issues</span><hr />
-        <div>
-            small pie chart here
-        </div>       
+    <div class="col-md-4 ">
+        <h4>Issues</h4>
+           <?php $this->catreport("100%","40%" ); ?>
     </div>
-    <div class="col-md-3 well">
-        <span>Other reports</span><hr />
-        <div>
-            small pie chart here
-        </div> 
-    </div>
+  
     </div>
 <?php
     }

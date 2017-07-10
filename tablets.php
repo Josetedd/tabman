@@ -233,7 +233,7 @@ while ($row=  mysqli_fetch_array($result)){
             <td>".$row['school']."</td><td>".$row['imei1']."</td><td>".$row['sqcode']."</td><td>".$sam."</td><td>".$row['rdate']."</td>
         <td>";
 //show View Delivery Note
-             echo '<a class="btn btn-success" href="index.php?page=disp&id='.$id.'"><span class="fa fa-file-pdf-o">Delivery Note<span></a>';
+             echo '<a class="btn btn-success" href="index.php?page=dnote&id='.$id.'"><span class="fa fa-file-pdf-o">Delivery Note<span></a>';
         echo"</td></tr>";
          
          
@@ -255,6 +255,58 @@ while ($row=  mysqli_fetch_array($result)){
         else {
                 echo 'Data not saved contact Admin';
               
+        }
+    }
+//============================Print Delivery Note==================================================
+    public function dNote($tabid){
+         $connection= $this->dbselect();
+        $query="select * from `replaced` where `repId`=$tabid";
+        $result=$connection->query($query);
+        if(mysqli_num_rows($result)==1){
+            $row=  mysqli_fetch_array($result);
+?>
+<div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div>
+                <button onclick="window.print()" class="btn btn-success notprint"><span class="fa fa-print">Print</span></button>
+                
+                   
+                    
+            </div>
+            <div class="dnheader">
+            <img src="images/dnheader.jpg"/>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-condensed table-bordered">
+                    <tr><td>DN No:<?php echo $tabid;?></td><td>School: <?php echo $row['school'];?></td><td>Date:<?php echo $row['rdate'];?></td></tr>
+                    <tr><td colspan="3">Field officer:</td></tr>
+                </table>
+                <span>Please receive the undermentioned in good condition </span>
+                <table class="table table-bordered meza">
+                    <tr>
+                        <th>#</th><th>Quantity</th><th>Specification/Description</th><th>Serial Number</th>
+                    </tr>
+                    <tr><td>1.</td><td>1 PC</td><td>iMlango attendance tablet</td><td><?php echo $row['imei1'];?></td></tr>
+                    <tr><td>2.</td><td></td><td></td><td></td></tr>
+                    <tr><td>3.</td><td></td><td></td><td></td></tr>
+                    <tr><td>4.</td><td></td><td></td><td></td></tr>
+                    <tr><td>5.</td><td></td><td></td><td></td></tr>
+                    <tr><td>6.</td><td></td><td></td><td></td></tr>
+                </table>
+            </div>
+            <div>
+                    <table class="meza">
+                        <tr><td>Delivered By:</td><td>____________________________</td><td>Received By:</td><td>____________________________</td></tr>
+                        <tr><td>Designation:</td><td>____________________________</td><td>Designation:</td><td>____________________________</td></tr>
+                        <tr><td>Signature:</td><td>____________________________</td><td>Signature:</td><td>____________________________</td></tr>
+                        <tr><td>Date:</td><td>____________________________</td><td>Date:</td><td>____________________________</td></tr>
+                    </table>
+                
+            </div>
+            
+            </div>
+        </div>
+<?php
         }
     }
 }

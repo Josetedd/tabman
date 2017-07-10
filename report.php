@@ -144,4 +144,68 @@ class report extends dbconn {
 </script>
 <?php
     }
+    public function catreport($width, $height){
+        $connection=  $this->dbselect();
+        $query="select * from categories";
+        $result=$connection->query($query);
+        $issueCount=  mysqli_num_rows($result);
+       
+?>
+<div class="well">
+<div id="catreport">
+    chart here
+    
+</div>
+    <span>Number of issues: <?php echo $issueCount;    ?></span>
+</div>
+<script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'catreport',
+    width: '<?php echo $width ?>',
+    height: '<?php echo $height; ?>',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Split of Faulty Tablets",
+            "subCaption": "by Issues",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "0",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Total revenue: $64.08K",
+            "centerLabel": "Revenue from $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [
+            <?php 
+             while($row=  mysqli_fetch_array($result)){
+            
+            $query2="select * from `returned` where `tissue`='".$row['category']."'";
+            $result2=$connection->query($query2);
+            $numCount=  mysqli_num_rows($result2);
+            $chartData= '{
+            "label": "'.$row['category'].'",
+            "value": "'.$numCount.'"
+        },';
+            echo $chartData;
+        }
+             ?>
+        ]
+    }
+}
+);
+    fusioncharts.render();
+});
+</script>
+<?php
+    }
 }
