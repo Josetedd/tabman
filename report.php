@@ -36,7 +36,7 @@ class report extends dbconn {
     chart here
     
 </div>
-    Total Faulty Tablets:<?php echo $num_row;?>
+    Total Replaced Tablets:<?php echo $num_row;?>
 </div>
 <script>
     FusionCharts.ready(function(){

@@ -10,7 +10,8 @@ $pages = new Pages();
 if(!isset($_GET['page'])){// if not set show home page
     $title="home";
     $pages->pageheader($title);
-    $pages->mainDash();
+    $pages->Dashmenu();
+    $pages->Dashreports();
     $pages->pagefooter();
     
 }
@@ -21,6 +22,8 @@ if(!isset($_GET['page'])){// if not set show home page
      if($name=="home"){
       $title="home";
     $pages->pageheader($title);
+    $pages->Dashmenu();
+    $pages->Dashreports();
     $pages->pagefooter();   
      }
 //>>>>>>>>>>>>>>>>>>>>>>>>Tablets Page<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -119,7 +122,10 @@ if(!isset($_GET['page'])){// if not set show home page
             $title="Delivery Note";
             $pages->pageheader($title);
             if(!isset($_GET['id'])){
-                echo 'no Tablet selected, select from this list';
+                echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>No Tablet Selected!</strong> Select from the list below.
+</div>';
                 $tablets->tabview();
                 $pages->bodyright();
                 $processing->ntcbrd();

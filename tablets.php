@@ -249,13 +249,21 @@ while ($row=  mysqli_fetch_array($result)){
         $connection= $this->dbselect();
         if(mysqli_query($connection, $sql1)){
             if(mysqli_query($connection, $sql2)){
-                echo 'Data successfully Saved';
+                echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Saved!</strong> Tablet successfully replaced.
+</div>';
+                
             }
         }
         else {
-                echo 'Data not saved contact Admin';
+                echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Not Saved!</strong> Contact admin
+</div>';
               
         }
+        $this->tabview();
     }
 //============================Print Delivery Note==================================================
     public function dNote($tabid){
@@ -268,6 +276,7 @@ while ($row=  mysqli_fetch_array($result)){
 <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div>
+                <a  href="index.php?page=replaced" class="btn btn-info notprint"><span class="fa fa-backward">Back</span></a>
                 <button onclick="window.print()" class="btn btn-success notprint"><span class="fa fa-print">Print</span></button>
                 
                    
@@ -282,7 +291,7 @@ while ($row=  mysqli_fetch_array($result)){
                     <tr><td colspan="3">Field officer:</td></tr>
                 </table>
                 <span>Please receive the undermentioned in good condition </span>
-                <table class="table table-bordered meza">
+                <table class="table table-bordered">
                     <tr>
                         <th>#</th><th>Quantity</th><th>Specification/Description</th><th>Serial Number</th>
                     </tr>
@@ -295,7 +304,7 @@ while ($row=  mysqli_fetch_array($result)){
                 </table>
             </div>
             <div>
-                    <table class="meza">
+                <table>
                         <tr><td>Delivered By:</td><td>____________________________</td><td>Received By:</td><td>____________________________</td></tr>
                         <tr><td>Designation:</td><td>____________________________</td><td>Designation:</td><td>____________________________</td></tr>
                         <tr><td>Signature:</td><td>____________________________</td><td>Signature:</td><td>____________________________</td></tr>
