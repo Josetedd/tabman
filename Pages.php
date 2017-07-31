@@ -52,7 +52,7 @@ class Pages extends report{
         <ul class="dropdown-menu">
             <li><a href="index.php?page=ftabs">View Faulty Tablets</a></li>
           <li><a href="index.php?page=replaced">View Replaced Tablets</a></li>
-          <li><a href="#">Tablet Reports</a></li>
+         
         </ul>
       </li>
       <li><a href="index.php?page=categories"><span class="fa fa-lg fa-book">Categories</span></a></li>
@@ -154,19 +154,19 @@ class Pages extends report{
                         <label>Type</label>
                         <select class="form-control" name="ttype">
                             <optgroup>
-                                <option value="all">All Faulty tablets</option>
-                                <option value="unrep">Unreplaced tablets</option>
-                                <option value="rep">replaced tablets</option>
+                                <option value="1">All Faulty tablets</option>
+                                <option value="2">Unreplaced tablets</option>
+                                <option value="3">replaced tablets</option>
                             </optgroup>
                         </select>
                     </div>
                     <div class="form-group form-inline">
-                    <label>From:</label><input name="" class="form-control" type="date" placeholder="begining of time>"/>
-                     <label>to:</label><input class="form-control" type="date" placeholder="begining of time>"/>
+                    <label>From:</label><input name="fdate" class="form-control" type="date" placeholder="begining of time>"/>
+                    <label>to:</label><input name="tdate" class="form-control" type="date" placeholder="begining of time>"/>
                     <label>County:</label>
-                <select class="form-control">
+                <select name="county"class="form-control">
                     <optgroup>
-                        <option value="all">All Counties</option>
+                        <option value="%" selected>All Counties</option>
                       <option value="kajiado">Kajiado</option>
                       <option value="kilifi">Kilifi</option>
                       <option value="makueni">Makueni</option>
@@ -175,9 +175,9 @@ class Pages extends report{
                     
                 </select>
                 <label>Issues:</label>
-                <select class="form-control">
+                <select name="fiss" class="form-control">
                     <optgroup>
-                      <option>All issues</option>
+                        <option value="%">All issues</option>
 <?php
 //--------------------------get issues from database and display them in a drop down list---------------------------
         $connect= $this->dbselect();

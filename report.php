@@ -12,6 +12,7 @@
  * @author dell
  */
 class report extends dbconn {
+    private $theQuery;
     public function fCounty($width, $height){
         $connection = $this->dbselect();
         $query="SELECT * FROM `returned`";
@@ -208,4 +209,55 @@ class report extends dbconn {
 </script>
 <?php
     }
+//+++++++++++++++++++++++++====filter======+++++++++++++++++++++++++++++++++++
+    public function rfilter($ftype,$fdate,$tdate,$county,$issue){
+        
+        $rquery="SELECT * FROM `returned` WHERE`replaced` LIKE '".$ftype.
+                "' AND `rdate` BETWEEN '".$fdate."' AND '".$tdate.
+                "' and `county` LIKE '".$county.
+                "' and `tissue` LIKE '".$issue."'";
+        $this->theQuery=$rquery;
+        //echo $this->theQuery;
+        //return $rquery;
+    }
+    
+    public function showresult(){
+//----------get data from db------------------------------------------
+        $connection = $this->dbselect();
+        $query = $this->theQuery;
+        $result= $connection->query($query) ;
+        $numrow=  mysqli_num_rows($result);
+        if($numrow==0){
+            echo 'no resulty found!';
+        }
+        else{
+ ?>
+<div>
+    <h1 style="text-align: center">Filter Results</h1>
+    <a class="btn btn-info">Download</a>
+    <table class="table table-striped">
+        <thead><tr>
+            <th>School</th><th>County</th><th>Squid Code</th><th>Issue</th><th>With SAM?</th><th>Returned On</th>
+            </tr></thead>
+<?php
+while ($row = mysqli_fetch_array($result)) {
+            
+            $id=$row['tabId'];
+           
+            echo "<tr>
+            <td>".$row['merchant']."</td><td>".$row['county']."</td><td>".$row['squidcode']."</td><td>".$row['tissue']."</td><td>".$row['sam']."</td><td>".$row['rdate']."</td>
+        <td></tr>";
+    }
+?>
+    </table>
+<?php
+        }
+       
+    }
+    public function rdown(){
+        echo $this->theQuery;
+    }
+  
+    
+    
 }

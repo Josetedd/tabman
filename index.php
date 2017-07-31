@@ -34,6 +34,7 @@ if(!isset($_GET['page'])){// if not set show home page
             $school=$_POST['fschl'];
             $imei=$_POST['rime'];
             $rcode=$_POST['rcode'];
+            $rtype="replaced";
             if(!isset($_POST['rsam'])){
                 $rsam="0";
             }
@@ -43,8 +44,8 @@ if(!isset($_GET['page'])){// if not set show home page
             
             $tabid=$_POST['tabid'];
             $sql2="UPDATE returned SET replaced=1 WHERE tabId=$tabid";
-            $sql1="INSERT INTO replaced (school,imei1,sqcode,sam,rdate)
-                VALUES ('$school', '$imei', '$rcode', '$rsam', now()) ";
+            $sql1="INSERT INTO replaced (school,imei1,sqcode,rtype,sam,rdate)
+                VALUES ('$school', '$imei', '$rcode', '$rsam','$rtype', now()) ";
             $tablets->Repadd($sql1, $sql2);
             
         }
@@ -91,7 +92,7 @@ if(!isset($_GET['page'])){// if not set show home page
         $sqcode=$_POST["sqcode"];
         $county=$_POST["county"];
         $retdate=$_POST["retdate"];
-        $cond=$_POST["cond"];
+        //$cond=$_POST["cond"];
         $issue=$_POST["issue"];
         if(!isset($_POST["sam"])){
           $sam="No"; 
@@ -99,8 +100,8 @@ if(!isset($_GET['page'])){// if not set show home page
         else {
         $sam=$_POST["sam"];
         }
-        $sql= "INSERT INTO returned (merchant,squidcode,county,rdate,tcond,tissue,sam)
-                VALUES ('$merchant', '$sqcode', '$county', '$retdate', '$cond','$issue','$sam')";
+        $sql= "INSERT INTO returned (merchant,squidcode,county,rdate,tissue,sam)
+                VALUES ('$merchant', '$sqcode', '$county', '$retdate','$issue','$sam')";
          $processing->dbinsert($sql);
          $tablets->Ftabview();
       }   

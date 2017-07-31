@@ -32,10 +32,10 @@ class dbconn {
         $connection= $this->dbselect();
         if(mysqli_query($connection,$sql)){
             
-            echo 'Data saved';
+            echo '<div class="alert alert-success alert-dismissable">Data saved</div>';
         }
         else {
-            echo 'Data not Saved contact Admin';
+            echo '<div class="alert alert-danger alert-dismissable">Data not Saved contact Admin';
         }
        
         
