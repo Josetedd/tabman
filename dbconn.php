@@ -7,9 +7,9 @@
  */
 
 /**
- * Description of dbconn
+ * Funnctions for connecting to DB
  *
- * @author dell
+ * @author Joseph Mwangi
  */
 class dbconn {
     public function dbselect(){

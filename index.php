@@ -144,7 +144,7 @@ if(!isset($_GET['page'])){// if not set show home page
 elseif ($name=="addcat") {
     $title="New Category";
     $pages->pageheader($title);
-    $category->Addcat();
+    $pages->Addcat();
     $pages->pagefooter();
 
 }
