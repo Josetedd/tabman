@@ -51,8 +51,9 @@ class Pages extends report {
                                 <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-lg fa-mobile">Tablets</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="index.php?page=ftabs">View Faulty Tablets</a></li>
-                                    <li><a href="index.php?page=replaced">View Replaced Tablets</a></li>
+                                    <li><a href="tablet_view.php?page=allocate">Manage Tablet Allocation</a></li>
+                                    <li><a href="tablet_view.php?page=ftabs">Manage Faulty Tablets</a></li>
+                                    <li><a href="tablet_view.php?page=replaced">Manage Replaced Tablets</a></li>
 
                                 </ul>
                             </li>
@@ -201,7 +202,7 @@ class Pages extends report {
         </div>
         <?php
     }
-
+//==================================add a category form==================================================
     public function Addcat() {
         ?>
         <div class="row">

@@ -6,7 +6,99 @@
  *
  */
 class Tablets extends dbconn {
+    //==============================allocate new tablet=========================
+    public function allocateTab(){
+        $dbconn = new dbconn();
+        ?>
+<!--------------------------------tablet allocation form----------------------->
+         <div class="row">
+            <div class="col-md-8" style="background:grey; border-radius:25px">
+                <h3 style="text-decoration: underline">New Tablet</h3>
+                <form action="tablet_view.php?page=allocate" method="post">
+                    <div class="form-group">
+                        <label for="serial">Serial No:</label><input  class="form-control" type="number" name="serial" placeholder="Serial Number" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="sqcode">Squid Code:</label><input  class="form-control" type="text" name="sqcode" placeholder="Squid Code" required />
+                    </div>
+                    <div class="form-group"><div>
+                            <label for="merchant">School:</label>
 
+                            <!----------search for school in db-------------------------------------------->
+                            <script>
+                                $(document).ready(function ($) {
+                                    $('#merch').autocomplete({
+                                        source: 'schSearch.php',
+                                        minLength: 2
+                                    });
+                                });
+                            </script>
+                            </script>
+                        </div>
+                        <input  id="merch" class="form-control" type="text" name="merchant" placeholder="School Name" required />
+                    </div>
+                    <!---------------end--------------------------------------------------------------->
+                    
+                    <div class="form-group">
+                        <label for="county">County</label>
+                        <!--------------------------get county name------------------------------------------>
+                        <select class="form-control" name="county" required placeholder="select county">
+                            <optgroup>
+                                <option value="" disabled selected>Select County</option>
+                                <option>Kilifi</option>
+                                <option>Makueni</option>
+                                <option>Kajiado</option>
+                                <option>Uasin Gishu</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sam">SAM?:</label><input type="checkbox" name="sam" value="yes">    
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-sm btn-success"type="submit" name="sbt">Save</button>
+                        <button class="btn btn-sm btn-success" type="reset" name="rst">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <?php
+    }
+    //-----------------------------add new tablet to database--------------------
+    public function newtabProcess($serial,$sqcode,$school,$county,$sam){
+        // check if tablet is already allocated
+        $connection = $this->dbselect();
+        $query = "select * from `tabletallocation` where `serialNo`=$serial OR `squidCode` =$sqcode";
+        $result = $connection->query($query);
+        if (mysqli_num_rows($result) > 0) {
+         echo '<div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Tablet with that serial number or squid Code already EXISTS!!</strong> Reallocate it here
+                            </div>';
+        } 
+        else {
+            $sql="INSERT INTO `tabletallocation`(`serialNo`, `squidCode`, `school`, `county`, `sam`)"
+                    . " VALUES('$serial','$sqcode','$school','$county','$sam')";
+            if($connection->query($sql)){
+             echo '<div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Saved!</strong> Tablet Added Successfully.
+                    </div>';
+                    }else {
+                    echo '<div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Not Saved!</strong> Contact admin
+                            </div>';
+                }
+            
+        }
+    
+        
+    }
     //=============================new returned tablet==============================
     public function frmfield() {
         $dbconn = new dbconn();
@@ -14,8 +106,8 @@ class Tablets extends dbconn {
 
         <div class="row">
             <div class="col-md-8" style="background:grey; border-radius:25px">
-                <h3 style="text-decoration: underline">RETURNED TABLET</h3>
-                <form action="index.php?page=add" method="post">
+                <h3 style="text-decoration: underline">Add Faulty Tablet</h3>
+                <form action="tablet_view.php?page=add" method="post">
                     <div class="form-group"><div>
                             <label for="merchant">School:</label>
 
@@ -92,8 +184,8 @@ class Tablets extends dbconn {
         ?>
         <div>
             <h1 style="text-align: center">Faulty Tablets</h1>
-            <a class="btn btn-danger" href="index.php?page=faulty"><span class="fa fa-plus">Add Faulty Tablet</span></a>
-            <a class="btn btn-info" href="#"><span class="fa fa-plus-square">Add extra tablet</span></a>
+            <a class="btn btn-danger" href="tablet_view.php?page=faulty"><span class="fa fa-plus">Add Faulty Tablet</span></a>
+            <a class="btn btn-info" href="tablet_view.php?page=new_tablet"><span class="fa fa-plus-square">Add new tablet</span></a>
             <br/>
             <table class="table table-striped">
                 <tr>
@@ -107,7 +199,7 @@ class Tablets extends dbconn {
         <td>";
 //show replace button if not replaced and replace if replaced
                     if ($row['replaced'] == 0) {
-                        echo '<a class="btn btn-success btn-sm" href="index.php?page=disp&id=' . $id . '"><span class="fa fa-refresh">replace<span></a>';
+                        echo '<a class="btn btn-success btn-sm" href="tablet_view.php?page=disp&id=' . $id . '"><span class="fa fa-refresh">replace<span></a>';
                     } else {
                         echo '<span class="btn btn-danger btn-sm disabled">Replaced</span>';
                     }
@@ -204,9 +296,9 @@ class Tablets extends dbconn {
         ?>
         <div>
             <h1 style="text-align: center">Replaced Tablets</h1>
-            <a class="btn btn-primary" href="index.php?page=ftabs"><span class="fa fa-eye">View Faulty Tablets</span></a>
-            <a class="btn btn-info" href="#"><span class="fa fa-plus-square">Add extra tablet</span></a>
-            <a class="btn btn-danger" href="index.php?page=faulty"><span class="fa fa-eye">Add Faulty Tablets</span></a>
+            <a class="btn btn-primary" href="tablet_view.php?page=ftabs"><span class="fa fa-eye">View Faulty Tablets</span></a>
+            <a class="btn btn-info" href="tablet_view.php?page=new_tablet"><span class="fa fa-plus-square">Add New Tablet</span></a>
+            <a class="btn btn-danger" href="tablet_view.php?page=faulty"><span class="fa fa-eye">Add Faulty Tablets</span></a>
             <br/>
             <table class="table table-striped">
                 <tr>
@@ -225,7 +317,7 @@ class Tablets extends dbconn {
             <td>" . $row['school'] . "</td><td>" . $row['imei1'] . "</td><td>" . $row['sqcode'] . "</td><td>" . $sam . "</td><td>" . $row['rdate'] . "</td>
         <td>";
 //show View Delivery Note
-            echo '<a class="btn btn-success" href="index.php?page=dnote&id=' . $id . '"><span class="fa fa-file-pdf-o">Delivery Note<span></a>';
+            echo '<a class="btn btn-success" href="tablet_view.php?page=dnote&id=' . $id . '"><span class="fa fa-file-pdf-o">Delivery Note<span></a>';
             echo"</td></tr>";
         }
         ?>
@@ -233,8 +325,7 @@ class Tablets extends dbconn {
         </div>
                 <?php
             }
-
-            //================================insert replace tablet data====================================
+//================================insert replace tablet data====================================
             public function Repadd($sql1, $sql2) {
                 $connection = $this->dbselect();
                 if (mysqli_query($connection, $sql1)) {
@@ -264,7 +355,7 @@ class Tablets extends dbconn {
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div>
-                        <a  href="index.php?page=replaced" class="btn btn-info notprint"><span class="fa fa-backward">Back</span></a>
+                        <a  href="tablet_view.php?page=replaced" class="btn btn-info notprint"><span class="fa fa-backward">Back</span></a>
                         <button onclick="window.print()" class="btn btn-success notprint"><span class="fa fa-print">Print</span></button>
 
 
