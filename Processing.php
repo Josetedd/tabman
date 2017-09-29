@@ -14,6 +14,7 @@ class Processing extends dbconn {
 
 //==============default notice board information================================
     public function ntcbrd() {
+        
         $connection = $this->dbselect();
         $query1 = "SELECT * FROM `returned` WHERE `county`='Kajiado'";
         $query2 = "SELECT * FROM `returned` WHERE `county`='Kilifi'";
@@ -43,6 +44,7 @@ class Processing extends dbconn {
 
         </dl>
         <?php
+         
     }
 
 }

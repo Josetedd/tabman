@@ -7,8 +7,8 @@
  */
 class Tablets extends dbconn {
     //==============================allocate new tablet=========================
+    //----------------page for adding tablet-----------------------------------
     public function allocateTab(){
-        $dbconn = new dbconn();
         ?>
 <!--------------------------------tablet allocation form----------------------->
          <div class="row">
@@ -32,7 +32,6 @@ class Tablets extends dbconn {
                                         minLength: 2
                                     });
                                 });
-                            </script>
                             </script>
                         </div>
                         <input  id="merch" class="form-control" type="text" name="merchant" placeholder="School Name" required />
@@ -79,6 +78,7 @@ class Tablets extends dbconn {
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Tablet with that serial number or squid Code already EXISTS!!</strong> Reallocate it here
                             </div>';
+         
         } 
         else {
             $sql="INSERT INTO `tabletallocation`(`serialNo`, `squidCode`, `school`, `county`, `sam`)"
@@ -96,23 +96,78 @@ class Tablets extends dbconn {
                 }
             
         }
-    
+    $this->allocatedview();
         
     }
-    //=============================new returned tablet==============================
-    public function frmfield() {
-        $dbconn = new dbconn();
+//===============================view allocated tablets=========================
+    public function allocatedview(){
+       $connection = $this->dbselect();
+        $query = "SELECT * FROM `tabletallocation`";
+        $result = $connection->query($query);
         ?>
+        <div>
+            <div>
+            <h1 style="text-align: center">Tablets in Schools</h1>
+           
+            <a class="btn btn-info" href="tablet_view.php?page=new_tablet"><span class="fa fa-plus-square">Add new tablet</span></a>
+            <!--<a class="btn btn-danger" href="tablet_view.php?page=faulty"><span class="fa fa-plus">Mark Faulty</span></a>-->
+            <br/>
+            <hr/>
+            </div>
+             <?php $this->fsearch(); ?>
+            <table class="table table-striped">
+                <tr>
+                    <td>Serial No</td><td>Squid Code</td><td>School</td><td>County</td><td>SAM</td><td></td><td></td>
+                </tr>
+                <?php
+                while ($row = mysqli_fetch_array($result)) {
+                    $id = $row['id'];
+                    if ($row['sam'] == 1) {
+                        $sam = "Yes";
+                    } else {
+                        $sam = "No";
+                    }
+                    echo "<tr>
+            <td>" . $row['serialNo'] . "</td><td>" . $row['squidCode'] . "</td><td>" . $row['school'] . "</td><td>" . $row['county'] . "</td><td>" . $sam . "</td>
+        <td>";
+            //show Edit and Faulty button
+                    echo '<a class="btn btn-success btn-sm" href="tablet_view.php?page=edit_allocate&id=' . $id . '"><span class="fa fa-pencil">Edit<span></a>';
+                    echo '</td><td><a class="btn btn-danger btn-sm" href="tablet_view.php?page=disp&id=' . $id . '"><span class="fa fa-ban">Faulty<span></a>';
+                    echo"</td></tr>";
+                }
+                ?>
+            </table>
+        </div>
+        <?php 
+    }
+    //=========================Edit/reallocate tablet form===========================
+    public function allocateEdit($id){
+        
+       
+        $connection= $this->dbselect();
+        $query = "SELECT * FROM `tabletallocation` WHERE `id`=$id";
+        $result = $connection->query($query);
+        if (mysqli_num_rows($result) == 1) {
+            $row = mysqli_fetch_array($result);
 
-        <div class="row">
-            <div class="col-md-8" style="background:grey; border-radius:25px">
-                <h3 style="text-decoration: underline">Add Faulty Tablet</h3>
-                <form action="tablet_view.php?page=add" method="post">
-                    <div class="form-group"><div>
-                            <label for="merchant">School:</label>
-
-                            <!----------search for school in db-------------------------------------------->
-                            <script>
+            //==================================replacement form================================================
+            ?>
+            <div class="row">
+                <form class="form" action="tablet_view.php?page=allocUpdt&id=<?php echo $id ?>" method="post">
+                    <div class="col-md-6 col-md-offset-3" style="background-color: #4cb14d; color: white ">
+                        <h2 align="center">Edit/Re-allocate Tablet</h2>
+                        
+                            <div class="form-group"> 
+                                <label class="control-label" for="serial">Serial:</label>
+                                <input type="text" class="form-control" name="serial" value="<?php echo $row['serialNo'] ?>">
+                            </div>
+                            <div class="form-group"> 
+                                <label class="control-label" for="sqcode">Squid Code</label>     
+                                <input type="text" class="form-control" name="sqcode" value="<?php echo $row['squidCode'] ?>">
+                             
+                            </div>
+                            <div class="form-group">
+                                <script>
                                 $(document).ready(function ($) {
                                     $('#merch').autocomplete({
                                         source: 'schSearch.php',
@@ -120,31 +175,145 @@ class Tablets extends dbconn {
                                     });
                                 });
                             </script>
+                                <label class="control-label" for="school">School:</label>          
+                                <input id="merch" type="text" class="form-control" name="school" value="<?php echo $row['school'] ?>" >
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="county">County</label>          
+                                <input type="text" class="form-control" name="county" value="<?php echo $row['county'] ?>" >
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" name="sbt">Update</button>
+                            </div>   
+                    </div>
+                </form>
+            </div>
+            <?php
+            } 
+            else {
+            echo 'no  tablet selected';
+            $this->Ftabview();
+        }
+         
+    }
+    //==========================update allocation edit==========================
+    public function allocationUpdate($id, $serial, $sqcode, $school , $county){
+        $connect = $this->dbselect();
+        $sql = "UPDATE `tabletallocation` SET `serialNo`='$serial',`squidCode`='$sqcode',"
+                . "`school`='$school',`county`='$county' WHERE `id`=$id"; 
+        if(mysqli_query($connect, $sql)){
+          echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Update succesfull!</strong>.
+</div>';  
+        }
+        else{
+            echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Not Saved!</strong> Contact admin
+</div>';
+        }
+        mysqli_close($connect);
+        $this->allocatedview();
+    }
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Faulty Tablet<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    public function fsearch(){
+        ?>
+<div class="row">
+        <div class="alert alert-info">
+            <form class="form" method="post"action="tablet_view.php?page=fsresult">
+                <div class="form-group form-inline">
+                    <script>
+                                $(document).ready(function ($) {
+                                    $('#merch').autocomplete({
+                                        source: 'schSearch.php',
+                                        minLength: 2
+                                    });
+                                });
                             </script>
-                        </div>
-                        <input  id="merch" class="form-control" type="text" name="merchant" placeholder="School Name" required />
-                    </div>
-                    <!---------------end--------------------------------------------------------------->
-                    <div class="form-group">
-                        <label for="sqcode">Squid Code:</label><input  class="form-control" type="text" name="sqcode" placeholder="Squid Code" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="county">County</label>
-                        <!--------------------------get county name------------------------------------------>
-                        <select class="form-control" name="county" required placeholder="select county">
-                            <optgroup>
-                                <option value="" disabled selected>Select County</option>
-                                <option>Kilifi</option>
-                                <option>Makueni</option>
-                                <option>Kajiado</option>
-                                <option>Uasin Gishu</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="retdate">Return Date:</label><input class="form-control" type="date" name="retdate" placeholder="Date" required/>
-                    </div>
-                    <div class="form-group">
+                    <!--<label>School:</label>-->
+                    <input type="text" name="school" id="merch" class="form-control" placeholder="Search School"/>
+                    <button type="submit" name="sbt" class="btn btn-success"><span class="fa fa-search">Search</span></button>
+                    
+                </div>
+            </form>
+        </div>
+</div>
+<?php
+    }
+    public function fsearchresults($school){
+        $num = 0;
+        $connection = $this->dbselect();
+        $query = "SELECT * FROM `tabletallocation` WHERE `school`='$school'";
+        $result = $connection->query($query);
+         
+            ?>
+<table class="table table-striped">
+                <tr>
+                    <td>#</td><td>Serial No</td><td>Squid Code</td><td></td><td></td>
+                </tr>
+                <?php
+                if(mysqli_num_rows($result)==0){
+                    
+                    echo "<tr><td>no data found</td></tr>";
+                }
+                else{
+                   
+                echo "<div>School Name: ".$school."</div>";
+                
+                while ($row = mysqli_fetch_array($result)) {
+                    $num++;
+                    $id=$row['id'];
+                    echo "<tr><td>".$num."</td><td>" . $row['serialNo'] . "</td><td>" . $row['squidCode'] . "</td><td>";
+                    echo '<a class="btn btn-success btn-sm" href="tablet_view.php?page=edit_allocate&id=' . $id . '"><span class="fa fa-pencil">Edit<span></a>';
+                        echo '</td><td><a class="btn btn-success btn-sm" href="tablet_view.php?page=disp&id=' . $id . '"><span class="fa fa-refresh">Faulty<span></a>';
+                    echo"</td></tr>";
+                }
+                }
+                ?>
+            </table>
+        </div>
+        <?php
+    }
+
+//=============================new Faulty tablet==============================
+    public function markFaulty($id){
+        //connect to db and return details
+        $connection= $this->dbselect();
+        $query = "SELECT * FROM `tabletallocation` WHERE `id`='$id'";
+        $result = $connection->query($query);
+        if(mysqli_num_rows($result)==1){
+            $row = mysqli_fetch_array($result);
+            ?>
+        <div class="row">
+                <form class="form" action="tablet_view.php?page=add&id=<?php echo $id ?>" method="post">
+                    <div class="col-md-6 col-md-offset-3" style="background-color: #4cb14d; color: white ">
+                        <h2 align="center">Add Faulty Tablet</h2>
+                        
+                            <div class="form-group"> 
+                                <label class="control-label" for="serial">Serial:</label>
+                                
+                                <input type="hidden" class="form-control" name="serial" value="<?php echo $row['serialNo'] ?>">
+                                <input type="text" class="form-control" name="serial1" value="<?php echo $row['serialNo'] ?>" disabled>
+                            </div>
+                            <div class="form-group"> 
+                                <label class="control-label" for="sqcode">Squid Code</label>     
+                                <input type="hidden" class="form-control" name="sqcode" value="<?php echo $row['squidCode'] ?>">
+                                <input type="text" class="form-control" name="sqcode1" value="<?php echo $row['squidCode'] ?>" disabled>
+                             
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="school">School:</label>
+                                <input type="hidden" class="form-control" name="county" value="<?php echo $row['county'] ?>">
+                                <input  type="hidden" class="form-control" name="school" value="<?php echo $row['school'] ?>" >
+                                <input  type="text" class="form-control" name="school1" value="<?php echo $row['school'] ?>" disabled>
+                            </div>
+                        <div class="form-group">
+                                <label class="control-label" for="school">Returned on:</label> 
+                                <input  type="date" class="form-control" name="rdate" value="<?php echo $row['school'] ?>" required>
+                            </div>
+                        
+                            <div class="form-group">
                         <label for="issue">Category</label>
                         <select class="form-control" name="issue" required>
                             <optgroup>
@@ -161,19 +330,46 @@ class Tablets extends dbconn {
                             </optgroup>
                         </select>
                     </div>
-                    <div class="form-group">
+                        <div class="form-group">
                         <label for="sam">SAM?:</label><input type="checkbox" name="sam" value="yes">    
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-sm btn-success"type="submit" name="sbt">Save</button>
-                        <button class="btn btn-sm btn-success" type="reset" name="rst">Clear</button>
-
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" name="sbt">Update</button>
+                            </div>   
                     </div>
                 </form>
             </div>
-        </div>
-
-        <?php
+            <?php
+            
+        }
+        else {
+            echo 'could not retrieve tablet details please contact admin';
+        }
+    }
+    //
+    function processFaultyTablet($id, $serial, $sqcode, $school,$county,$date, $issue, $sam){
+        //connect to db and add details to faulty tablets table
+        $connect = $this->dbselect();
+        $sql= "INSERT INTO `returned`(`serialNo`, `squidcode`, `school`,`county`, `rdate`, `tissue`, `sam`) "
+            . "VALUES ('$serial','$sqcode','$school','$county','$date','$issue','$sam')";
+        $sql2 ="DELETE FROM `tabletallocation` WHERE `id`='$id'";
+        if($connect->query($sql)){
+            if($connect->query($sql2)){
+                echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Saved!</strong>.
+</div>';
+            }
+            
+        }
+ else {
+    echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Not Saved!</strong> Contact admin
+</div>';
+}
+        
+        
     }
 
     //======================**view Faulty tablets**================================
@@ -189,14 +385,20 @@ class Tablets extends dbconn {
             <br/>
             <table class="table table-striped">
                 <tr>
-                    <td>School</td><td>County</td><td>Issue</td><td>Squid Code</td><td>returned on</td>
+                    <td>Serial</td><td>Squid Code</td><td>School</td><td>Issue</td><td>returned on</td><td>SAM</td>
                 </tr>
                 <?php
                 while ($row = mysqli_fetch_array($result)) {
                     $id = $row['tabId'];
+                    if($row['sam']==1){
+                        $sam = "yes";
+                    }
+                    else{
+                      $sam= "no";  
+                    }
                     echo "<tr>
-            <td>" . $row['merchant'] . "</td><td>" . $row['county'] . "</td><td>" . $row['tissue'] . "</td><td>" . $row['squidcode'] . "</td><td>" . $row['rdate'] . "</td>
-        <td>";
+            <td>" . $row['serialNo'] . "</td><td>" . $row['squidcode'] . "</td><td>" . $row['school'] . "</td><td>" . $row['tissue'] . "</td><td>" . $row['rdate'] . "</td>
+            <td>".$sam."</td><td>";
 //show replace button if not replaced and replace if replaced
                     if ($row['replaced'] == 0) {
                         echo '<a class="btn btn-success btn-sm" href="tablet_view.php?page=disp&id=' . $id . '"><span class="fa fa-refresh">replace<span></a>';

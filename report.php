@@ -9,6 +9,76 @@ class report extends dbconn {
     /*
      * this function generates a pie chart showing faulty tablets per county
      */
+   public function incounty ($width, $height){
+       $connection =$this->dbselect();
+       $query = "SELECT * FROM `tabletallocation`";
+        $query1 = "SELECT * FROM `tabletallocation` WHERE `county`='Kajiado'";
+        $query2 = "SELECT * FROM `tabletallocation` WHERE `county`='Kilifi'";
+        $query3 = "SELECT * FROM `tabletallocation` WHERE `county`='Makueni'";
+        $query4 = "SELECT * FROM `tabletallocation` WHERE `county`='Uasin Gishu'";
+        $result = $connection->query($query);
+        $result1 = $connection->query($query1);
+        $result2 = $connection->query($query2);
+        $result3 = $connection->query($query3);
+        $result4 = $connection->query($query4);
+        $num_row = mysqli_num_rows($result);
+        $num_row1 = mysqli_num_rows($result1);
+        $num_row2 = mysqli_num_rows($result2);
+        $num_row3 = mysqli_num_rows($result3);
+        $num_row4 = mysqli_num_rows($result4);
+//=======generate chart=========================================================
+        ?>
+        <div class="well">
+            <div id="inCounty">
+                chart here
+
+            </div>
+            Faulty Tablets:<span class="badge"><?php echo $num_row; ?></span>
+        </div>
+        <script>
+            FusionCharts.ready(function () {
+                var fcountyChart = new FusionCharts({
+                    "type": "pie2d",
+                    "renderAt": "inCounty",
+                    "width": "<?php echo $width ?>",
+                    "height": "<?php echo $height ?>",
+                    "dataFormat": "json",
+                    "dataSource": {
+                        "chart": {
+                            "caption": "in Counties",
+                            "subCaption": "in each county",
+                            "theme": "fint"
+                        },
+                        "data": [
+                            {
+                                "label": "Kajiado",
+                                "value": "<?php echo $num_row1; ?>"
+                            },
+                            {
+                                "label": "Kilifi",
+                                "value": "<?php echo $num_row2; ?>"
+                            },
+                            {
+                                "label": "Makueni",
+                                "value": "<?php echo $num_row3; ?>"
+                            },
+                            {
+                                "label": "Uasin Gishu",
+                                "value": "<?php echo $num_row4; ?>"
+                            }
+                        ]
+                    }
+                });
+
+                fcountyChart.render();
+            })
+        </script>
+        <?php
+
+       
+   }
+
+   //--------------------faulty tablet--------------------------------------------
 
     public function fCounty($width, $height) {
 // =========get data from database========================        
@@ -35,7 +105,7 @@ class report extends dbconn {
                 chart here
 
             </div>
-            Total Replaced Tablets:<?php echo $num_row; ?>
+            Faulty Tablets:<span class="badge"><?php echo $num_row; ?></span>
         </div>
         <script>
             FusionCharts.ready(function () {
@@ -47,7 +117,7 @@ class report extends dbconn {
                     "dataFormat": "json",
                     "dataSource": {
                         "chart": {
-                            "caption": "Total Faulty Tablets",
+                            "caption": "Faulty Tablets",
                             "subCaption": "in each county",
                             "theme": "fint"
                         },
@@ -77,7 +147,7 @@ class report extends dbconn {
         </script>
         <?php
     }
-
+// ----------------replaced tablets report---------------------------------------------------------------
     public function RCounty($width, $height) {
         $connection = $this->dbselect();
         $query = "SELECT * FROM `returned` WHERE `replaced`=1";
@@ -102,7 +172,7 @@ class report extends dbconn {
                 chart here
 
             </div>
-            Total Faulty Tablets:<?php echo $num_row; ?>
+            Replaced Tablets:<?php echo $num_row; ?>
         </div>
         <script>
             FusionCharts.ready(function () {

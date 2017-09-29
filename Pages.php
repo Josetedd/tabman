@@ -51,9 +51,9 @@ class Pages extends report {
                                 <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-lg fa-mobile">Tablets</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="tablet_view.php?page=allocate">Manage Tablet Allocation</a></li>
+                                    <li><a href="tablet_view.php?page=allocate_view">Manage Tablet Allocation</a></li>
                                     <li><a href="tablet_view.php?page=ftabs">Manage Faulty Tablets</a></li>
-                                    <li><a href="tablet_view.php?page=replaced">Manage Replaced Tablets</a></li>
+                                    <li><a href="index.php?page=replaced">Manage Replaced Tablets</a></li>
 
                                 </ul>
                             </li>
@@ -114,8 +114,9 @@ class Pages extends report {
     public function Dashmenu() {
         ?>
         <div class="jumbotron" style="text-align: center">
-            <a href="index.php?page=ftabs" class="btn  btn-danger"><span class="fa fa-wrench fa-2x">Faulty Tablets</span></a>
-            <a href="index.php?page=replaced" class="btn btn-success"><span class="fa fa-recycle fa-2x">Replaced Tablets</span></a>
+            <a href="tablet_view.php?page=allocate_view" class="btn  btn-info"><span class="fa fa-mobile fa-2x">Tablet Allocation</span></a>
+            <a href="tablet_view.php?page=ftabs" class="btn  btn-danger"><span class="fa fa-wrench fa-2x">Faulty Tablets</span></a>
+            <a href="tablet_view.php?page=replaced" class="btn btn-success"><span class="fa fa-recycle fa-2x">Replaced Tablets</span></a>
             <a href="index.php?page=categories" class="btn btn-warning"><span class="fa fa-cog fa-2x">issues</span></a>
             <a href="view_reports.php" class="btn btn-info"><span class="fa fa-pie-chart fa-2x">Reports</span></a>
         </div>
@@ -126,6 +127,13 @@ class Pages extends report {
     public function Dashreports() {
         ?>
         <div class="row">
+             <div class="col-md-4">
+                <h4>Tablets in the Field</h4>
+                <a href="#">
+                    <!------------------------Information on tablets in the field------------------------------------------------>
+        <?php $this->incounty("100%", "40%"); ?> 
+                </a>   
+            </div>
 
             <div class="col-md-4">
                 <h4>Faulty tablets</h4>

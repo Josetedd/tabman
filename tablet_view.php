@@ -58,14 +58,47 @@ if(!isset($_GET['page'])){// if not set show home page
            
         }
  }
+ //========================view tablet allocation===============================
+ elseif ($name=="allocate_view") {
+     $title="Tablets in Schools";
+            $pages->pageheader($title);
+            $pages->bodyleft();
+            $tablets->allocatedview();
+            $pages->bodyright();
+            $processing->ntcbrd();
+            $pages->pagefooter2();
+ 
+}
+//=========================edit tablet allocation form===============================
+        elseif ($name=="edit_allocate") {
+          $title="Edit";
+          $pages->pageheader($title);
+          $id=$_GET['id'];
+          $tablets->allocateEdit($id);
+        }
+//=======================update tablet allocation info==========================
+        elseif ($name=="allocUpdt") {
+        $title = "Edit";
+        $pages->pageheader($title);
+        if(isset($_POST['sbt'])){
+            $id = $_GET['id'];
+            $serial = $_POST['serial'];
+            $sqcode = $_POST['sqcode'];
+            $school = $_POST['school'];
+            $county = $_POST['county'];
+            $tablets->allocationUpdate($id, $serial, $sqcode, $school, $county);
+        }
+        
+    }
  //==================tablet replacement=========================================
     //------------------ tablet replacement page======================================
        elseif ($name=="disp") {
        $title="replace";
      $pages->pageheader($title);
      if(isset($_GET['id'])){
-         $tabid=$_GET['id'];
-     $tablets->tabrep($tabid);
+     $id=$_GET['id'];
+     
+     $tablets->markFaulty($id);
      }
      else{
          echo 'No Faulty Tablet Selected';
@@ -111,31 +144,47 @@ if(!isset($_GET['page'])){// if not set show home page
      $title="Add Faulty";
      $pages->pageheader($title);
      $pages->bodyleft();
-     $tablets->frmfield();
+     $tablets->fsearch();
      $pages->bodyright();
      $processing->ntcbrd();
      $pages->pagefooter2();
        }
+//========================faulty tablet search result===========================
+        elseif ($name=="fsresult") {
+        $title="result";
+        $pages->pageheader($title);
+        //$pages->bodyleft();
+        $tablets->fsearch();
+        if(isset($_POST['sbt'])){
+            $school = $_POST['school'];
+         $tablets->fsearchresults($school);
+         
+        }
+        else {
+            echo" no school selected";
+        }
+        $pages->pagefooter();
+        
+    }
 //==================add Faulty tablet page=============================================
    elseif ($name=="add") {
         $title = "Success";
       $pages->pageheader($title);
       if(isset($_POST["sbt"])){
-        $merchant=$_POST["merchant"];
+          $id = $_GET['id'];
+        $serial=$_POST["serial"];
         $sqcode=$_POST["sqcode"];
+        $school=$_POST["school"];
+        $date=$_POST["rdate"];
         $county=$_POST["county"];
-        $retdate=$_POST["retdate"];
-        //$cond=$_POST["cond"];
         $issue=$_POST["issue"];
         if(!isset($_POST["sam"])){
-          $sam="No"; 
+          $sam="0"; 
         }
         else {
-        $sam=$_POST["sam"];
+        $sam=1;
         }
-        $sql= "INSERT INTO returned (merchant,squidcode,county,rdate,tissue,sam)
-                VALUES ('$merchant', '$sqcode', '$county', '$retdate','$issue','$sam')";
-         $processing->dbinsert($sql);
+        $tablets->processFaultyTablet($id,$serial, $sqcode, $school,$county, $date, $issue, $sam);
          $tablets->Ftabview();
       }   
 }
@@ -162,7 +211,9 @@ if(!isset($_GET['page'])){// if not set show home page
 </div>';
                 $tablets->tabview();
                 $pages->bodyright();
+                
                 $processing->ntcbrd();
+                $pages->bodyleft();
                 $pages->pagefooter2();
             }
             else {
