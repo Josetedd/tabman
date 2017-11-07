@@ -33,7 +33,7 @@ class report extends dbconn {
                 chart here
 
             </div>
-            Faulty Tablets:<span class="badge"><?php echo $num_row; ?></span>
+            Total:<span class="badge"><?php echo $num_row; ?></span>
         </div>
         <script>
             FusionCharts.ready(function () {
@@ -45,8 +45,8 @@ class report extends dbconn {
                     "dataFormat": "json",
                     "dataSource": {
                         "chart": {
-                            "caption": "in Counties",
-                            "subCaption": "in each county",
+                            "caption": "Tablets in each county",
+                           
                             "theme": "fint"
                         },
                         "data": [
@@ -105,7 +105,7 @@ class report extends dbconn {
                 chart here
 
             </div>
-            Faulty Tablets:<span class="badge"><?php echo $num_row; ?></span>
+            Total:<span class="badge"><?php echo $num_row; ?></span>
         </div>
         <script>
             FusionCharts.ready(function () {
