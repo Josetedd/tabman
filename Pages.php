@@ -127,32 +127,31 @@ class Pages extends report {
     public function Dashreports() {
         ?>
         <div class="row">
-            <div class="col-md-4" style="background-color: #cccccc">
-                 <h4 style="text-align: center">Tablets in the Field</h4>
+             <div class="col-md-4">
+                <h4>Tablets in the Field</h4>
                 <a href="#">
                     <!------------------------Information on tablets in the field------------------------------------------------>
         <?php $this->incounty("100%", "40%"); ?> 
                 </a>   
             </div>
 
-            <div class="col-md-4"style="background-color: #cccccc">
-                 <h4 style="text-align: center">Faulty tablets</h4>
+            <div class="col-md-4">
+                <h4>Faulty tablets</h4>
                 <a href="#">
                     <!------------------------faulty tablets chart------------------------------------------------>
         <?php $this->fCounty("100%", "40%"); ?> 
                 </a>   
             </div>
-            
-            <!------------------------Categories chart------------------------------------------------>
-            <div class="col-md-4 "style="background-color: #cccccc">
-                 <h4 style="text-align: center">Issues</h4>
-        <?php $this->catreport("100%", "40%"); ?>
-            </div>
             <!------------------------Replaced tablets chart------------------------------------------------>
-            <div class="col-md-4"style="background-color: #cccccc">
-                 <h4 style="text-align: center">Replaced tablets</h4>
+            <div class="col-md-4">
+                <h4>Replaced tablets</h4>
         <?php $this->RCounty("100%", "40%"); ?>
 
+            </div>
+            <!------------------------Categories chart------------------------------------------------>
+            <div class="col-md-4 ">
+                <h4>Issues</h4>
+        <?php $this->catreport("100%", "40%"); ?>
             </div>
 
         </div>
