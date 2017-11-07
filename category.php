@@ -20,7 +20,7 @@ class Category extends dbconn {
         ?>
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
-                <h3>Categories</h3>
+                <h3 class="item_heading">Categories</h3>
                 <table class="table table-bordered table-responsive table-striped"><thead><tr><td>Category ID</td><td>Category Name</td><td></td></td></tr></thead>
                     <?php
                             while ($row = mysqli_fetch_array($result)) {

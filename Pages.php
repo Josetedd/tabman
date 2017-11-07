@@ -58,6 +58,8 @@ class Pages extends report {
                                 </ul>
                             </li>
                             <li><a href="index.php?page=categories"><span class="fa fa-lg fa-book">Categories</span></a></li>
+                            <li><a href="index.php?page=categories"><span class="fa fa-lg fa-graduation-cap">Schools/Merchants</span></a></li>
+                            
                             <li><a href="view_reports.php"><span class="fa fa-lg fa-pie-chart">Reports</span></a></li>
                         </ul> 
                     </div>

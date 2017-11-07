@@ -1,3 +1,4 @@
 bootstrap/* linguist-vendored
 font_awesome/* linguist-vendored
 mycss/* linguist-vendored
+/nbproject/private/
