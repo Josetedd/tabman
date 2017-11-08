@@ -35,7 +35,7 @@ class dbconn {
             echo '<div class="alert alert-success alert-dismissable">Data saved</div>';
         }
         else {
-            echo '<div class="alert alert-danger alert-dismissable">Data not Saved contact Admin';
+            echo '<div class="alert alert-danger alert-dismissable">Data not Saved contact Admin</div>';
         }
        
         

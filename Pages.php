@@ -57,8 +57,8 @@ class Pages extends report {
 
                                 </ul>
                             </li>
-                            <li><a href="index.php?page=categories"><span class="fa fa-lg fa-book">Categories</span></a></li>
-                            <li><a href="index.php?page=categories"><span class="fa fa-lg fa-graduation-cap">Schools/Merchants</span></a></li>
+                            <li><a href="issues_view.php"><span class="fa fa-lg fa-book">Issues</span></a></li>
+                            <li><a href="#"><span class="fa fa-lg fa-graduation-cap">Schools/Merchants</span></a></li>
                             
                             <li><a href="view_reports.php"><span class="fa fa-lg fa-pie-chart">Reports</span></a></li>
                         </ul> 
@@ -217,8 +217,8 @@ class Pages extends report {
         ?>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <h3 style="text-align: center"><small>New Category</small></h3>
-                <form action="index.php?page=savecat" method="post">
+                <h3 style="text-align: center"><small>New Issue</small></h3>
+                <form action="issues_view.php?page=save" method="post">
 
                     <div class="form-group">
                         <label for="CatName">Category Name</label>

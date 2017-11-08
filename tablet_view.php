@@ -4,7 +4,7 @@
 include 'collection.php';
 $pages = new Pages();
     $processing = new Processing();
-    $category = new Category();
+    $category = new Issues();
     $tablets =new Tablets();
 //==============check if page name is set============================================
 if(!isset($_GET['page'])){// if not set show home page

@@ -7,7 +7,7 @@
  *
  * @author Joseph Mwangi
  */
-class Category extends dbconn {
+class Issues extends dbconn {
     /*
      * display all categories in the database
      */
@@ -20,20 +20,20 @@ class Category extends dbconn {
         ?>
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
-                <h3 class="item_heading">Categories</h3>
-                <table class="table table-bordered table-responsive table-striped"><thead><tr><td>Category ID</td><td>Category Name</td><td></td></td></tr></thead>
+                <h3 class="item_heading">Issues</h3>
+                <table class="table table-bordered table-responsive table-striped"><thead><tr><td>Issue ID</td><td>Issue Name</td><td></td></td></tr></thead>
                     <?php
                             while ($row = mysqli_fetch_array($result)) {
                                 ?><tr><td><?php
                                         echo $row['catId'] . '</td><td>' . $row['category'] . '</td>'
-                                        . ' <td><a class="btn-sm btn-info"href="index.php?page=cated&&id=' . $row['catId'] . '"><span class="fa fa-edit">edit</span></a></td>'
+                                        . ' <td><a class="btn-sm btn-info"href="issues_view.php?page=edit&&id=' . $row['catId'] . '"><span class="fa fa-edit">edit</span></a></td>'
                                         . '</tr>'
                                         ?>
                                         <?php
                                     }
                                     ?>
                 </table>
-                <a class="btn btn-success" href="index.php?page=addcat" ><span class="fa fa-plus">Add Category</span></a>
+                <a class="btn btn-success" href="issues_view.php?page=add" ><span class="fa fa-plus">Add an Issue</span></a>
             </div>
         </div>
         <?php
@@ -41,13 +41,13 @@ class Category extends dbconn {
     }
 
     /*
-     * this function is used to edit an existing category
+     * this function is used to edit an existing Issue
      */
 
     public function editcat($id) {
         //connect to db
         $connect = $this->dbselect();
-        //Get category details
+        //Get issue details
         $query = "SELECT * FROM `categories` WHERE `catId`= $id";
         $result = $connect->query($query);
         if (mysqli_num_rows($result) == 1) {
@@ -55,18 +55,18 @@ class Category extends dbconn {
             ?>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <h3 style="text-align: center"><small>Edit Category</small></h3>
-                    <form action="index.php?page=savecat" method="post">
+                    <h3 style="text-align: center"><small>Edit Issue</small></h3>
+                    <form action="issues_view.php?page=save" method="post">
                         <div class="form-group">
                             <input class="form-control" type="hidden" name="catid" value="<?php echo $row['catId'] ?>"/>
                         </div>
                         <div class="form-group">
-                            <label for="CatName">Category Name</label>
+                            <label for="CatName">Issue Name</label>
                             <input class="form-control" type="text" name="CatName" value="<?php echo $row['category'] ?>"/>
                         </div>
                         <div class="form-group">
                             <button type="submit" name="updt" class="btn-sm btn-success">Update</button>
-                            <a   class="btn-sm btn-success" href="index.php?page=categories">View Categories</a>
+                            <a   class="btn-sm btn-success" href="index.php?page=categories">View Issues</a>
                         </div>
 
                     </form>
@@ -78,15 +78,15 @@ class Category extends dbconn {
     }
 
     /*
-     * Save a new category
+     * Save a new issue
      */
 
     public function savecat($catName) {
-        //check if category exists
+        //check if issue exists
         $connect = $this->dbselect();
         $result = $connect->query("SELECT * FROM `categories` WHERE `category` like '%$catName'");
         if (mysqli_num_rows($result) == 1) {
-            echo 'that category already exists';
+            echo '<div class="alert alert-danger alert-dismissable">that issue already exists</div>';
         } else {
             $sql = "INSERT INTO categories (category)
                 VALUES ('$catName')";
@@ -95,11 +95,11 @@ class Category extends dbconn {
     }
 
     /*
-     * update an edited category
+     * update an edited issue
      */
 
     public function catupdt($catName, $catID) {
-        //check if category exists
+        //check if issue exists
         $connect = $this->dbselect();
         //$result= $connect->query("SELECT * FROM `categories` WHERE `category` like '%$catName'");
         $sql = 'UPDATE `categories` SET `category`="' . $catName . '" WHERE `catId`=' . $catID;
