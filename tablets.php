@@ -11,7 +11,7 @@ class Tablets extends dbconn {
     public function addTablet(){
         ?>
  <div class="row">
-                <form class="form" action="tablet_view.php?page=add&id=<?php echo $id ?>" method="post">
+                <form class="form" action="tablet_view.php?page=add_new" method="post">
                     <div class="col-md-6 col-md-offset-3" style="background-color: #4cb14d; color: white ">
                         <h2 align="center">Add Tablet</h2>
                             <div class="form-group"> 
@@ -21,10 +21,10 @@ class Tablets extends dbconn {
                         <label for="sqcode">Squid Code:</label><input  class="form-control" type="text" name="sqcode" placeholder="Squid Code" required />
                     </div>
                     <div class="form-group">
-                         <label for="sqcode">Status:</label>
-                         <select class="form-control">
-                             <option>Active</option>
-                             <option>Faulty</option>
+                         <label for="status">Status:</label>
+                         <select class="form-control" name="tablet_status">
+                             <option value="active">Active</option>
+                             <option value="faulty">Faulty</option>
                          </select>
                     </div>
                         <div class="form-group">

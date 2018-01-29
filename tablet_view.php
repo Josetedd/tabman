@@ -6,6 +6,7 @@ $pages = new Pages();
     $processing = new Processing();
     $category = new Issues();
     $tablets =new Tablets();
+    $tabletProcess = new tablet_process();
 //==============check if page name is set============================================
 if(!isset($_GET['page'])){// if not set show home page
     $title="home";
@@ -27,7 +28,7 @@ if(!isset($_GET['page'])){// if not set show home page
     $pages->pagefooter();   
      }
 //>>>>>>>>>>>>>>>>>>>>>>>>Tablets Page<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-     //=====================Tablet Allocation===================================
+     //=====================Add Tablet===================================
      //---------------------show new tablet form--------------------------------
      elseif ($name=="new_tablet") {
      $title ="New Tablet";
@@ -38,6 +39,23 @@ if(!isset($_GET['page'])){// if not set show home page
          echo 'am good';
      }
      }
+     //--------------add new tablet to db--------------------------------------
+      elseif ($name == "add_new") {
+        $title = "New Tablet";
+        $pages->pageheader($title);
+        if (isset($_POST['sbt'])) {
+            $serial = $_POST['serial'];
+            $sqcode = $_POST['sqcode'];
+            if(isset($_POST['tablet_status'])){
+            $status = $_POST['tablet_status'];
+            }
+        
+            $tabletProcess->newtabProcess($serial, $sqcode, $status);
+            //$tablets->newtabProcess($serial, $sqcode, $school, $county, $sam);
+        }
+    }
+    //=====================Tablet Allocation===================================
+     //--------------Allocate tablet to school---------------------------------
      elseif ($name=="allocate") {
      $title ="New Tablet";
      $pages->pageheader($title);
@@ -48,26 +66,23 @@ if(!isset($_GET['page'])){// if not set show home page
      }
      }
      //----------------------process new tablet----------------------------------
-     elseif ($name=="allocate") {
-         $title = "New Tablet";
+    elseif ($name == "allocate") {
+        $title = "New Tablet";
         $pages->pageheader($title);
-        if(isset($_POST['sbt'])){
+        if (isset($_POST['sbt'])) {
             $serial = $_POST['serial'];
             $sqcode = $_POST['sqcode'];
             $school = $_POST['merchant'];
             $county = $_POST['county'];
-            if(!isset($_POST['sam'])){
+            if (!isset($_POST['sam'])) {
                 $sam = 0;
-            }
-            else {
+            } else {
                 $sam = 1;
             }
             $tablets->newtabProcess($serial, $sqcode, $school, $county, $sam);
-        
-           
         }
- }
- //========================view tablet allocation===============================
+    }
+    //========================view tablet allocation===============================
  elseif ($name=="allocate_view") {
      $title="Tablets in Schools";
             $pages->pageheader($title);

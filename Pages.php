@@ -51,7 +51,7 @@ class Pages extends report {
                                 <a class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-lg fa-mobile">Tablets</span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="tablet_view.php?page=allocate_view">Manage Tablet Allocation</a></li>
+                                    <li><a href="tablet_view.php?page=allocate_view">Manage Tablet</a></li>
                                     <li><a href="tablet_view.php?page=ftabs">Manage Faulty Tablets</a></li>
                                     <li><a href="index.php?page=replaced">Manage Replaced Tablets</a></li>
 
