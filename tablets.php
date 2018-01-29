@@ -8,9 +8,38 @@
 class Tablets extends dbconn {
     //==============================allocate new tablet=========================
     //----------------page for adding tablet-----------------------------------
+    public function addTablet(){
+        ?>
+ <div class="row">
+                <form class="form" action="tablet_view.php?page=add&id=<?php echo $id ?>" method="post">
+                    <div class="col-md-6 col-md-offset-3" style="background-color: #4cb14d; color: white ">
+                        <h2 align="center">Add Tablet</h2>
+                            <div class="form-group"> 
+                        <label for="serial">Serial No:</label><input  class="form-control" type="number" name="serial" placeholder="Serial Number" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="sqcode">Squid Code:</label><input  class="form-control" type="text" name="sqcode" placeholder="Squid Code" required />
+                    </div>
+                    <div class="form-group">
+                         <label for="sqcode">Status:</label>
+                         <select class="form-control">
+                             <option>Active</option>
+                             <option>Faulty</option>
+                         </select>
+                    </div>
+                        <div class="form-group">
+                                <button type="submit" class="btn btn-default" name="sbt">Add</button>
+                            </div>  
+                        </div>
+                </form>
+            
+         </div>
+<?php
+    }
+    //----------------tablet allocation----------------------------------------
     public function allocateTab(){
         ?>
-<!--------------------------------tablet allocation form----------------------->
+       ---------------------tablet allocation form----------------------->
          <div class="row">
             <div class="col-md-8" style="background:grey; border-radius:25px">
                 <h3 style="text-decoration: underline">New Tablet</h3>

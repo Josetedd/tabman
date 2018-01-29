@@ -32,6 +32,15 @@ if(!isset($_GET['page'])){// if not set show home page
      elseif ($name=="new_tablet") {
      $title ="New Tablet";
      $pages->pageheader($title);
+     $tablets->addTablet();
+     $pages->pagefooter();
+     if(isset($_POST['sbt'])){
+         echo 'am good';
+     }
+     }
+     elseif ($name=="allocate") {
+     $title ="New Tablet";
+     $pages->pageheader($title);
      $tablets->allocateTab();
      $pages->pagefooter();
      if(isset($_POST['sbt'])){
